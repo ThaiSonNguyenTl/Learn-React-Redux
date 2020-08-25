@@ -36,6 +36,7 @@ class TaskForm extends Component {
       name: '',
       status: false
     })
+    this.closeForm()
   }
 // khi component taskForm dc goi( khi btn edit dc nhan vao) thi life circle dc goi va chi goi 1 lan
   componentWillMount() {
