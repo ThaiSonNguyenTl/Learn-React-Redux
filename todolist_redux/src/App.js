@@ -10,9 +10,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      keyword: '',
-      sortBy: '',
-      sortValue: 1
     }
   }
   onToggleForm = () => {
@@ -28,44 +25,9 @@ class App extends Component {
       status: false
     })
   }
-  onSearch = (keyword) => {
-    this.setState({
-      keyword: keyword.toLowerCase(),
-    })
-  }
-
-  onSort = (sortBy,sortValue) => {
-    this.setState({
-      sortBy:sortBy,
-      sortValue:sortValue
-    })
-  }
+ 
   render() {
-    let {
-          keyword,
-          sortBy,
-          sortValue
-    } = this.state // let task = this.state.tasks
     let {isDisplayForm} = this.props
-   
-    // if (keyword) {
-    //   tasks = tasks.filter((task) => {
-    //     return task.name.toLowerCase().indexOf(keyword) !== -1
-    //   })
-    // }
-    // if (sortBy === 'name') {
-    //   tasks.sort((a, b) => {
-    //     if (a.name > b.name) return sortValue
-    //     if (a.name < b.name) return -sortValue
-    //     else return 0
-    //   })
-    // } else {
-    //   tasks.sort((a, b) => {
-    //     if (a.status > b.status) return -sortValue
-    //     if (a.status < b.status) return sortValue
-    //     else return 0
-    //   })
-    // }
     return (
       <div className="container">
         <div className ='text-center'>
@@ -83,13 +45,7 @@ class App extends Component {
             >
               <span className='fas fa-plus'></span> Add Task
             </button>
-           
-            <Control
-              onSearch={this.onSearch}
-              onSort={this.onSort}
-              sortBy={sortBy}
-              sortValue={sortValue}
-            /> &nbsp;
+            <Control/> &nbsp;
             <TaskList />
           </div>
         </div>
@@ -104,7 +60,6 @@ const mapStateToProps = (state) => {
     taskEditing: state.taskEditing
   }
 }
-
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onToggleForm: () => dispatch(actions.toggleForm()),

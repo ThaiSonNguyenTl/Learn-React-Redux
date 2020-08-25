@@ -27,13 +27,11 @@ class TaskList extends Component{
         })
     }
     render() {
-        let { tasks, filterTable } = this.props // let tasks = this.props.tasks lay o store
+        let { tasks, filterTable, keyword ,sort} = this.props // let tasks = this.props.tasks lay o store
         // filter table
         if (filterTable) {
             if (filterTable.name) {
-              tasks = tasks.filter((task) => {
-                return task.name.toLowerCase().indexOf(filterTable.name.toLowerCase()) !== -1
-              })
+              tasks = tasks.filter((task) => task.name.toLowerCase().indexOf(filterTable.name.toLowerCase()) !== -1 )
             }
             tasks = tasks.filter((task) => {
               if (filterTable.status === -1) {
@@ -41,6 +39,26 @@ class TaskList extends Component{
               } else {
                 return task.status === (filterTable.status === 1 ? true : false)
               }
+            })
+        }
+        
+        // search task
+        if (keyword) {
+            tasks = tasks.filter((task) => task.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1)
+        }
+        
+        // sort task
+        if (sort.by === 'name') {
+            tasks.sort((a, b) => {
+              if (a.name > b.name) return sort.value
+              if (a.name < b.name) return -sort.value
+              else return 0
+            })
+          } else {
+            tasks.sort((a, b) => {
+              if (a.status > b.status) return -sort.value
+              if (a.status < b.status) return sort.value
+              else return 0
             })
           }
         let elmTask = tasks.map((task, index) => {
@@ -97,7 +115,10 @@ class TaskList extends Component{
 const mapStateToProps = (state) => {
     return {
         tasks: state.tasks,
-        filterTable: state.filterTable
+        filterTable: state.filterTable,
+        keyword: state.searchTask,
+        sort : state.sortTask
+
     }
 }
 const mapDispatchToProps = (dispatch, props) => {
