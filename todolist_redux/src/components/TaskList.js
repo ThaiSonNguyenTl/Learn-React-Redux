@@ -68,6 +68,8 @@ class TaskList extends Component{
                     task={task}
                     />
         })
+        
+
         return (
             <table className="table table-bordered table-hover">
                 <thead>
